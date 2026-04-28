@@ -131,15 +131,15 @@ function hitungJarak(lat1, lon1, lat2, lon2) {
 
 // 🔥 FUNGSI AUTO BUKA WHATSAPP APP + FALLBACK
 function bukaWA(link){
-  let code = link.split('/').pop();
+  let cleanLink = (link || '').trim().replace(/\s/g,'');
 
-  // coba buka aplikasi
-  window.location.href = 'whatsapp://chat?code=' + code;
+  if(!cleanLink.startsWith('http')){
+    alert('Link WhatsApp tidak valid');
+    return;
+  }
 
-  // fallback ke web
-  setTimeout(()=>{
-    window.location.href = link;
-  },1500);
+  // langsung buka link resmi WhatsApp
+  window.location.href = cleanLink;
 }
 
 async function cariLokasi() {
